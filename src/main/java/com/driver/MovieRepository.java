@@ -61,10 +61,10 @@ public class MovieRepository {
             // directorMovieMap.put(directorName, movieList); //(ArrayList<Movie>) movieList if we mention parent object then we need to cast it
 
 
-            System.out.println(directorMap.get(directorName).toString());
-            //   System.out.println(movieList);
-            System.out.println(directorMovieMap.containsKey(directorName));
-            System.out.println(directorMovieMap.get(directorName).toString());
+//            System.out.println(directorMap.get(directorName).toString());
+//            //   System.out.println(movieList);
+//            System.out.println(directorMovieMap.containsKey(directorName));
+//            System.out.println(directorMovieMap.get(directorName).toString());
 
             str = "Movie & Director paired succesfully";
         }
@@ -102,13 +102,13 @@ public class MovieRepository {
         if(directorMovieMap.containsKey(name)){
             ArrayList<Movie> movieArrayList = directorMovieMap.get(name);//directorMap.get(name) can't access ny just namme cox created that map by director object key
             //
-            System.out.println(movieArrayList.size());
+//            System.out.println(movieArrayList.size());
             for (Movie movie : movieArrayList){ //movieArrayList //directorMovieMap.get(name)
                 list.add(movie.getName());
-                //
-                System.out.println(movie.getName());
-                System.out.println(movieArrayList);
-                System.out.println(list);
+//                //
+//                System.out.println(movie.getName());
+//                System.out.println(movieArrayList);
+//                System.out.println(list);
             }
         }
         return list;  //return arrayList
