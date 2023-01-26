@@ -27,7 +27,7 @@ public class MovieRepository {
             str = "Movie Added Succesfully";
         }
         else {
-            str = "Movie Information is not Sufficiednt Or Invalid";
+            str = null;
         }
         return str; // or we can directly Return
     }
@@ -39,7 +39,7 @@ public class MovieRepository {
             str = "Director Added Succesfully";
         }
         else {
-            str = "Director Information is not Sufficiednt Or Invalid";
+            str = null;
         }
         return str;
     }
@@ -69,7 +69,7 @@ public class MovieRepository {
             str = "Movie & Director paired succesfully";
         }
         else {
-            str = "Movies or Director Doesn't Exist";
+            str = null;
         }
 //        if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){
 //            directorMovieMap.put(movieMap.get(movieName),directorMap.get(directorName));

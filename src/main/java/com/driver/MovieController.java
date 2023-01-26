@@ -65,13 +65,13 @@ public class MovieController {
         return new ResponseEntity<>(list,HttpStatus.FOUND);
     }
 
-    @DeleteMapping("/movies/delete-director-by-name")
+    @DeleteMapping("/movies/delete-director-by-name") //
     public ResponseEntity deleteDirectorByName(@RequestParam("name") String name){
         String str = movieService.deleteDirectorByName(name);
         return new ResponseEntity<>(str,HttpStatus.GONE);
     }
 
-    @DeleteMapping("/movies/delete-all-directors")
+    @DeleteMapping("/movies/delete-all-directors") //
     public ResponseEntity deleteAllDirectors(){
         String str = movieService.deleteAllDirectors();
         return new ResponseEntity<>(str,HttpStatus.RESET_CONTENT);
