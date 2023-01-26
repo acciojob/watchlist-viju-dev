@@ -114,10 +114,14 @@ public class MovieRepository {
         return list;  //return arrayList
     }
 
-    public List<Movie> findAllMovies(){
-        List<Movie> list = new ArrayList<>();
+    public List<String> findAllMovies(){
+//        List<Movie> list = new ArrayList<>();
+//        for (String movie : movieMap.keySet()){
+//            list.add(movieMap.get(movie));
+//        }
+        List<String> list = new ArrayList<>();
         for (String movie : movieMap.keySet()){
-            list.add(movieMap.get(movie));
+            list.add(movie);
         }
         return list;
     }
