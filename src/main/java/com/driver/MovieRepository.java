@@ -20,31 +20,31 @@ public class MovieRepository {
     Map<String,Director> directorMap =new HashMap<>(); //director storage
     Map<String, ArrayList<Movie>> directorMovieMap = new HashMap<String, ArrayList<Movie>>(); // directorMovie storage
 
-    public String addMovie(@RequestBody Movie movie){
+    public String addMovie(Movie movie){
         String str = "";
         if(movie != null){
             movieMap.put(movie.getName(),movie);
             str = "Movie Added Succesfully";
         }
         else {
-            str = null;
+            str = "Information is not Valid";
         }
         return str; // or we can directly Return
     }
 
-    public String addDirector(@RequestBody Director director){
+    public String addDirector(Director director){
         String str = "";
         if(director != null){
             directorMap.put(director.getName(), director);
             str = "Director Added Succesfully";
         }
         else {
-            str = null;
+            str = "Information is not Valid";
         }
         return str;
     }
 
-    public String addMovieDirectorPair(@RequestParam("movieName") String movieName , @RequestParam("directorName") String directorName){
+    public String addMovieDirectorPair(String movieName , String directorName){
         String str = "";
         //ArrayList<Movie> movieList = new ArrayList<>(); //parent object List
         if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){
@@ -69,7 +69,7 @@ public class MovieRepository {
             str = "Movie & Director paired succesfully";
         }
         else {
-            str = null;
+            str = "Information is not Valid";
         }
 //        if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){
 //            directorMovieMap.put(movieMap.get(movieName),directorMap.get(directorName));
@@ -81,7 +81,7 @@ public class MovieRepository {
         return str;
     }
 
-    public Movie getMovieByName(@PathVariable("movieName") String name){
+    public Movie getMovieByName(String name){
         Movie movie = null;
         if (movieMap.containsKey(name)){
             movie = movieMap.get(name);
@@ -89,7 +89,7 @@ public class MovieRepository {
         return movie;
     }
 
-    public Director getDirectorByName(@PathVariable("directorName") String name){
+    public Director getDirectorByName(String name){
         Director director = null;
         if (directorMap.containsKey(name)){
             director = directorMap.get(name);
@@ -97,7 +97,7 @@ public class MovieRepository {
         return director;
     }
 
-    public List<String> getMoviesByDirectorName(@PathVariable("director") String name){ //List<Movie>
+    public List<String> getMoviesByDirectorName(String name){ //List<Movie>
         List<String> list = new ArrayList<>();
         if(directorMovieMap.containsKey(name)){
             ArrayList<Movie> movieArrayList = directorMovieMap.get(name);//directorMap.get(name) can't access ny just namme cox created that map by director object key
@@ -126,7 +126,7 @@ public class MovieRepository {
         return list;
     }
 
-    public String deleteDirectorByName(@RequestParam("name") String name){
+    public String deleteDirectorByName(String name){
         List<String> list = new ArrayList<>();
         String str = "";
         if(directorMovieMap.containsKey(name)){
