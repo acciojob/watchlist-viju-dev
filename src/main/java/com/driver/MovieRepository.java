@@ -144,7 +144,9 @@ public class MovieRepository {
                 }
             }
 
-            directorMap.remove(name); //remove director
+           if (directorMap.containsKey(name)){//remove director
+               directorMap.remove(name);
+           }
 
             str = "Records deleted Successfully";
         }
