@@ -13,162 +13,107 @@ import java.util.Map;
 
 @Repository
 public class MovieRepository {
-//    @Autowired
-//    MovieRepository movieRepository;
 
     Map<String,Movie> movieMap = new HashMap<>(); //movie storage
     Map<String,Director> directorMap =new HashMap<>(); //director storage
-    Map<String, ArrayList<Movie>> directorMovieMap = new HashMap<String, ArrayList<Movie>>(); // directorMovie storage
+    Map<String, ArrayList<String>> directorMovieMap = new HashMap<>(); // directorMovie storage
 
     public String addMovie(Movie movie){
-        String str = "";
-        if(movie != null){
             movieMap.put(movie.getName(),movie);
-            str = "Movie Added Succesfully";
-        }
-        else {
-            str = "Information is not Valid";
-        }
-        return str; // or we can directly Return
+            return "Movie Added Succesfully";
     }
 
     public String addDirector(Director director){
-        String str = "";
-        if(director != null){
             directorMap.put(director.getName(), director);
-            str = "Director Added Succesfully";
-        }
-        else {
-            str = "Information is not Valid";
-        }
-        return str;
+            return  "Director Added Succesfully";
+
     }
 
     public String addMovieDirectorPair(String movieName , String directorName){
         String str = "";
-        //ArrayList<Movie> movieList = new ArrayList<>(); //parent object List
-        if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){
+
+        if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){ //checking if dir and movie contains in storage or not
 
             if(!directorMovieMap.containsKey(directorName)){
-                directorMovieMap.put(directorName,new ArrayList<Movie>());
+                directorMovieMap.put(directorName,new ArrayList<String>());
             }
-//            ArrayList<Movie> movieList = directorMovieMap.get(directorName);
 
-            directorMovieMap.get(directorName).add(movieMap.get(movieName)); // direcly added by reference
-
-            // movieList.add(movieMap.get(movieName));
-
-            // directorMovieMap.put(directorName, movieList); //(ArrayList<Movie>) movieList if we mention parent object then we need to cast it
-
-
-//            System.out.println(directorMap.get(directorName).toString());
-//            //   System.out.println(movieList);
-//            System.out.println(directorMovieMap.containsKey(directorName));
-//            System.out.println(directorMovieMap.get(directorName).toString());
+            directorMovieMap.get(directorName).add(movieName); // direcly added by reference
 
             str = "Movie & Director paired succesfully";
         }
         else {
             str = "Information is not Valid";
         }
-//        if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)){
-//            directorMovieMap.put(movieMap.get(movieName),directorMap.get(directorName));
-//            str = "Movie & Director paired succesfully";
-//        }
-//        else {
-//            str = "Movie & Director paired succesfully";
-//        }
+
         return str;
     }
 
     public Movie getMovieByName(String name){
-        Movie movie = null;
-        if (movieMap.containsKey(name)){
-            movie = movieMap.get(name);
-        }
-        return movie;
+        return movieMap.get(name);
     }
 
     public Director getDirectorByName(String name){
-        Director director = null;
-        if (directorMap.containsKey(name)){
-            director = directorMap.get(name);
-        }
-        return director;
+            return directorMap.get(name);
     }
 
-    public List<String> getMoviesByDirectorName(String name){ //List<Movie>
-        List<String> list = new ArrayList<>();
-        if(directorMovieMap.containsKey(name)){
-            ArrayList<Movie> movieArrayList = directorMovieMap.get(name);//directorMap.get(name) can't access ny just namme cox created that map by director object key
-            //
-//            System.out.println(movieArrayList.size());
-            for (Movie movie : movieArrayList){ //movieArrayList //directorMovieMap.get(name)
-                list.add(movie.getName());
-//                //
-//                System.out.println(movie.getName());
-//                System.out.println(movieArrayList);
-//                System.out.println(list);
-            }
-        }
-        return list;  //return arrayList
+    public List<String> getMoviesByDirectorName(String name){
+//        List<String> list = new ArrayList<>(); //for storing movies
+//        if(directorMovieMap.containsKey(name)){ // cheking if director exist
+//            ArrayList<String> movieArrayList = directorMovieMap.get(name); //getting movielist of that director
+//            for (Movie movie : movieArrayList){
+//                list.add(movie.getName()); // adding movie names to list
+//            }
+//        }
+        return directorMovieMap.get(name); //returned list of movie names
     }
 
     public List<String> findAllMovies(){
-//        List<Movie> list = new ArrayList<>();
-//        for (String movie : movieMap.keySet()){
-//            list.add(movieMap.get(movie));
-//        }
-        List<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>(); //for storing movies
         for (String movie : movieMap.keySet()){
-            list.add(movie);
+            list.add(movie); //added al movie names to list
         }
-        return list;
+        return list; ///returned list of all movie names
     }
 
     public String deleteDirectorByName(String name){
         List<String> list = new ArrayList<>();
         String str = "";
         if(directorMovieMap.containsKey(name)){
-            for (Movie movie : directorMovieMap.get(name)){ //movieArrayList
-                list.add(movie.getName());
-//                if(movieMap.containsKey(movie.getName())){
-//                    movieMap.remove(movie.getName());
-//                }
+            for (String movie : directorMovieMap.get(name)){ //movieArrayList
+                list.add(movie); // store movies related to given director in this list
             }
-            directorMovieMap.remove(name); // remove records from directorMovieMap
+            directorMovieMap.remove(name); // removed director record from directorMovieMap
 
-            for(String movieName : list){//removed records of movies
+            for(String movieName : list){ //Iterate on movieName List
                 if(movieMap.containsKey(movieName)){
-                    movieMap.remove(movieName);
+                    movieMap.remove(movieName);   // if movie matched then removed from storage
                 }
             }
 
-           if (directorMap.containsKey(name)){//remove director
+           if (directorMap.containsKey(name)){// remove director from storage
                directorMap.remove(name);
            }
 
             str = "Records deleted Successfully";
         }
         else {
-            str = "Invalid records";
+            str = "Director with given name not Exist";
         }
         return str;
     }
 
     public String deleteAllDirectors(){
-        for (String directorName : directorMovieMap.keySet()){
-            for (Movie movie:directorMovieMap.get(directorName)){
-                if (movie.getName().equals(movie.getName())){
-                    movieMap.remove(movie.getName());
+        for (String directorName : directorMovieMap.keySet()){ // iterate on directorMovieMap to get every director
+            for (String movie:directorMovieMap.get(directorName)){ //iterate on directorMovieMap by directorName to get every movie
+                if (movieMap.containsKey(movie)){ // if that movie matched with movieMap then we'll remove it
+                    movieMap.remove(movie);
                 }
             }
         }
-//        movieMap.clear();
-        directorMap.clear();
-        directorMovieMap.clear();
-        String str = "All records deleted Successfully";
+        directorMap.clear(); // clear all directors
+        directorMovieMap.clear();// clear all director and movie pairs
+        return  "All records deleted Successfully";
 
-        return str;
     }
 }
