@@ -52,7 +52,7 @@ public class MovieRepository {
             if(!directorMovieMap.containsKey(directorName)){
                 directorMovieMap.put(directorName,new ArrayList<Movie>());
             }
-            ArrayList<Movie> movieList = directorMovieMap.get(directorName);
+//            ArrayList<Movie> movieList = directorMovieMap.get(directorName);
 
             directorMovieMap.get(directorName).add(movieMap.get(movieName)); // direcly added by reference
 
@@ -157,8 +157,14 @@ public class MovieRepository {
     }
 
     public String deleteAllDirectors(){
-
-        movieMap.clear();
+        for (String directorName : directorMovieMap.keySet()){
+            for (Movie movie:directorMovieMap.get(directorName)){
+                if (movie.getName().equals(movie.getName())){
+                    movieMap.remove(movie.getName());
+                }
+            }
+        }
+//        movieMap.clear();
         directorMap.clear();
         directorMovieMap.clear();
         String str = "All records deleted Successfully";
